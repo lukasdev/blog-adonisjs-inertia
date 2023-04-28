@@ -1,12 +1,5 @@
-<script setup>
-defineProps([
-    'biscoito'
-])
-</script>
 
 <template>
-    {{ biscoito }}
-    {{ user }}
     <h1 class="tw-flex tw-w-full tw-text-slate-600 tw-font-bold tw-mb-4">Ultimos artigos</h1>
     <ul class="tw-grid tw-grid-cols-2 md:tw-grid-cols-4 tw-gap-4">
         <li class="tw-bg-white tw-rounded-lg tw-overflow-hidden tw-shadow-md" v-for="n in 8">
