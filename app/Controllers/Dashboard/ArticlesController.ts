@@ -5,7 +5,7 @@ import Article from 'App/Models/Article';
 
 export default class ArticlesController {
     public async index({ inertia, request }: HttpContextContract) {
-        const limit = 20
+        const limit = 2;
         const page = request.input('page', 1)
   
         const articles = await Article.query().orderBy('id', 'desc').paginate(page, limit);
@@ -62,5 +62,21 @@ export default class ArticlesController {
         }
         
         return response.redirect().back();
+    }
+
+    public async delete({ params, response }: HttpContextContract) {
+        const id = params.id;
+
+        try {
+            const article = await Article.query().where('id', id).first();
+
+            if (article) {
+                await article.delete();
+            }
+        } catch {
+            session.flash('errors', { error: 'Não foi possivel deletar o artigo' });
+        }
+
+        return response.redirect().back();        
     }
 }

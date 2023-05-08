@@ -22,7 +22,7 @@ defineProps({
 
                     <ul class="tw-flex tw-text-slate-600">
                         <span class="tw-flex tw-gap-2" v-if="user">
-                            <li>Olá</li>
+                            <li>Olá </li>
                             <li><Link href="/admin">Painel</Link></li>
                         </span>
                         <span class="tw-flex tw-gap-2" v-else>
