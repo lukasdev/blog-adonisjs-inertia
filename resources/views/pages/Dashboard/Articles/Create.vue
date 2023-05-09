@@ -1,20 +1,19 @@
 <script setup>
-import { reactive, ref } from 'vue';
-import { router } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { useForm } from '@inertiajs/vue3';
 import { CheckRound } from '@vicons/material';
 
-const form = reactive({
+const form = useForm({
     title: '',
-    content: ''
+    content: '',
+    image: ''
 });
 const error = ref(null);
 
 const storeArticle = async () => {
-    await router.post('/admin/articles/new', {
-        title: form.title,
-        content: form.content
-    }, {
+    await form.post('/admin/articles/new', {
         onSuccess: () => {
+            form.image = '';
             form.title = '';
             form.content = '';
             error.value = null;
@@ -40,7 +39,8 @@ const storeArticle = async () => {
     </div>
 
     <form @submit.prevent="storeArticle">
-
+        
+        <input type="file" @input="form.image = $event.target.files[0]" />
         <n-input v-model:value="form.title" placeholder="Titulo do artigo" type="text" class="tw-mb-4" />
         <n-input v-model:value="form.content" placeholder="Conteúdo do artigo" type="textarea" class="tw-mb-4" />
         

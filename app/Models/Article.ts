@@ -11,6 +11,9 @@ export default class Article extends BaseModel {
   public userId: number
 
   @column()
+  public cover: string
+
+  @column()
   public title: string
 
   @column()

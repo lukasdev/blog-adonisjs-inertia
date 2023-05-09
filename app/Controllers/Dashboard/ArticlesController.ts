@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import CreateArticleValidator from 'App/Validators/CreateArticleValidator'
+import Application from '@ioc:Adonis/Core/Application'
 
 import Article from 'App/Models/Article';
 
@@ -27,9 +28,17 @@ export default class ArticlesController {
 
     public async store({ request, auth, response }: HttpContextContract) {
         const payload = await request.validate(CreateArticleValidator);
+        const file = request.file('image');
+
+        if (file) {
+            await file.move(Application.tmpPath('uploads'))
+        }
+
+        const fileName = (file?.fileName) ? file.fileName : '';
 
         const user = auth.use('web').user;
         await user?.related('articles').create({
+            cover: fileName,
             title: payload.title,
             content: payload.content
         })

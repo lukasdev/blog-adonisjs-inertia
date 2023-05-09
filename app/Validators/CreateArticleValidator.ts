@@ -24,6 +24,10 @@ export default class CreateArticleValidator {
      *    ```
      */
     public schema = schema.create({
+        image: schema.file({
+            size: '2mb',
+            extnames: ['jpg', 'gif'],
+        }),
         title: schema.string({},[]),
         content: schema.string({},[])
     })

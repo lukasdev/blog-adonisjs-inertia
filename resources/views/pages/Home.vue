@@ -14,7 +14,7 @@ defineProps({
     <ul class="tw-grid tw-grid-cols-2 md:tw-grid-cols-4 tw-gap-4">
         <li class="tw-bg-white tw-rounded-lg tw-overflow-hidden tw-shadow-md" 
         v-for="(article,key) in articles.data" :key="key">
-            <img src="https://placehold.it/300x200" alt="Thumbnail" class="tw-w-full tw-h-48 tw-object-cover">
+            <img :src="(article?.cover) ? `/uploads/${article.cover}` : 'https://placehold.it/300x200'" alt="Thumbnail" class="tw-w-full tw-h-48 tw-object-cover">
             <div class="tw-p-4">
                 <h3 class="tw-font-bold tw-text-lg tw-mb-2">{{ article.title }}</h3>
                 <p class="tw-text-gray-700 tw-mb-2">
