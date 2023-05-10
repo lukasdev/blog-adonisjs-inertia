@@ -1,6 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import CreateArticleValidator from 'App/Validators/CreateArticleValidator'
-import Application from '@ioc:Adonis/Core/Application'
+/*import Application from '@ioc:Adonis/Core/Application'*/
+
+import Drive from '@ioc:Adonis/Core/Drive';
 
 import Article from 'App/Models/Article';
 
@@ -31,7 +33,8 @@ export default class ArticlesController {
         const file = request.file('image');
 
         if (file) {
-            await file.move(Application.tmpPath('uploads'))
+            //await file.move(Application.tmpPath('uploads'))
+            await file.moveToDisk('./');
         }
 
         const fileName = (file?.fileName) ? file.fileName : '';
@@ -80,6 +83,9 @@ export default class ArticlesController {
             const article = await Article.query().where('id', id).first();
 
             if (article) {
+                if (article?.cover) {
+                    await Drive.delete(`./${article.cover}`)
+                }
                 await article.delete();
             }
         } catch {

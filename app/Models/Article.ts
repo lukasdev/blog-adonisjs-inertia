@@ -1,7 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, belongsTo, BelongsTo, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import { slugify } from '@ioc:Adonis/Addons/LucidSlugify'
+
 import User from './User';
+import Comment from './Comment';
 
 export default class Article extends BaseModel {
   @column({ isPrimary: true })
@@ -11,7 +13,7 @@ export default class Article extends BaseModel {
   public userId: number
 
   @column()
-  public cover: string
+  public cover: string | null
 
   @column()
   public title: string
@@ -36,5 +38,8 @@ export default class Article extends BaseModel {
   public updatedAt: DateTime
 
   @belongsTo(() => User)
-  public user: BelongsTo<typeof User>
+  public author: BelongsTo<typeof User>
+
+  @hasMany(() => Comment)
+  public comments: HasMany<typeof Comment>
 }

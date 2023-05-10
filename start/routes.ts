@@ -8,6 +8,8 @@ Route.post('/logout', 'AuthController.logout');
 
 Route.group(() => {
     Route.get('/:slug', 'ArticleController.show').as('show');
+    Route.post('/comment', 'ArticleController.comment').as('comment');
+
 }).prefix('/article').as('article');
 
 Route.group(() => {

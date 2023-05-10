@@ -1,5 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Article from 'App/Models/Article';
+import Comment from 'App/Models/Comment';
+import User from 'App/Models/User';
+
 export default class HomeController {
     public async index({ inertia, request}: HttpContextContract) {
         
